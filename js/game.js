@@ -1,9 +1,34 @@
 class Game {
+  constructor() {
+    this.obstacleArr = [];
+    this.timer = 0;
+  }
+
   start() {
     this.player = new Player();
     this.player.domElement = this.createDomElm(this.player);
     this.drawDomElm(this.player);
+
     this.addEventListeners();
+
+    setInterval(() => {
+      this.timer++;
+
+      if (this.timer % 3 === 0) {
+        const newObstacle = new Obstacle();
+        this.obstacleArr.push(newObstacle);
+        newObstacle.domElement = this.createDomElm(newObstacle);
+        this.drawDomElm(newObstacle);
+      }
+
+      // newObstacle.moveDown();
+      // this.drawDomElm(newObstacle);
+
+      this.obstacleArr.forEach((element) => {
+        element.moveDown();
+        game.drawDomElm(element);
+      });
+    }, 500);
   }
 
   addEventListeners() {
@@ -49,6 +74,21 @@ class Player {
 
   moveRight() {
     this.positionX += 10;
+  }
+}
+
+class Obstacle {
+  constructor() {
+    this.className = "obstacle";
+    this.positionX = 40;
+    this.positionY = 90;
+    this.width = 5;
+    this.height = 5;
+    this.domElement = null;
+  }
+
+  moveDown() {
+    this.positionY -= 10;
   }
 }
 

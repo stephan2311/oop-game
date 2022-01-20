@@ -9,6 +9,11 @@ body {
 }
 
 .player {
-  background-color: chocolate;
+  background-color:chocolate;
   position: absolute;
 }
+
+.obstacle {
+    background-color:darkslategrey;
+    position: absolute;
+  }
