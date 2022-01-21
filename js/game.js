@@ -21,12 +21,10 @@ class Game {
         this.drawDomElm(newObstacle);
       }
 
-      // newObstacle.moveDown();
-      // this.drawDomElm(newObstacle);
-
-      this.obstacleArr.forEach((element) => {
-        element.moveDown();
-        game.drawDomElm(element);
+      this.obstacleArr.forEach((obstacle) => {
+        obstacle.moveDown();
+        this.drawDomElm(obstacle);
+        this.detectCollisionWithPlayer(obstacle);
       });
     }, 500);
   }
@@ -56,6 +54,17 @@ class Game {
     instance.domElement.style.left = instance.positionX + "vw";
     instance.domElement.style.bottom = instance.positionY + "vh";
   }
+
+  detectCollisionWithPlayer(element) {
+    if (
+      this.player.positionX < element.positionX + element.width &&
+      this.player.positionX + this.player.width > element.positionX &&
+      this.player.positionY < element.positionY + element.height &&
+      this.player.height + this.player.positionY > element.positionY
+    ) {
+      alert("Game Over!");
+    }
+  }
 }
 
 class Player {
@@ -80,8 +89,8 @@ class Player {
 class Obstacle {
   constructor() {
     this.className = "obstacle";
-    this.positionX = 40;
-    this.positionY = 90;
+    this.positionX = 45;
+    this.positionY = 100;
     this.width = 5;
     this.height = 5;
     this.domElement = null;
